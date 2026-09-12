@@ -4,7 +4,7 @@
 // see admin-backend/SETUP.md. Site works fine with this
 // left empty; it just skips the dynamic content.
 // ══════════════════════════════════════════════════
-const CMS_API_URL = "";
+const CMS_API_URL = "https://script.google.com/macros/s/AKfycbygoSuK8sPX75QBS_eJspYzJGECdv7r4ztYV7Tkz8O0y5hnRSFzUnN5QhFPZsG02waQZQ/exec";
 
 async function loadSiteData() {
     if (!CMS_API_URL) return;
