@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель — TheStarth</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fraunces:opsz,wght@9..144,600..900&display=swap" rel="stylesheet">
+    <style>
+        body { background: var(--paper-alt); }
+        .admin-wrap { max-width: 960px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .admin-header h1 { font-size: 1.6rem; }
+
+        /* Login screen */
+        #login-screen { max-width: 380px; margin: 6rem auto; text-align: center; }
+        #login-screen input {
+            width: 100%; padding: 0.9rem; border-radius: 8px; border: 1px solid var(--rule);
+            background: #fff; color: var(--ink); font-size: 1rem; margin: 1.5rem 0 1rem;
+        }
+        #login-error { color: var(--accent-warm); font-size: 0.85rem; min-height: 1.2em; margin-bottom: 0.5rem; }
+        #setup-warning {
+            display: none; max-width: 500px; margin: 4rem auto; text-align: center;
+            background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 2rem;
+        }
+
+        /* Dashboard */
+        #dashboard { display: none; }
+        .admin-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+        .admin-tab {
+            padding: 0.8rem 1.3rem; background: none; border: none; cursor: pointer;
+            font-family: var(--font-heading); font-weight: 700; color: var(--ink-soft);
+            border-bottom: 2px solid transparent; margin-bottom: -1px; font-size: 0.95rem;
+        }
+        .admin-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .admin-panel { display: none; }
+        .admin-panel.active { display: block; }
+
+        .admin-card {
+            background: #fff; border: 1px solid var(--rule); border-radius: 12px;
+            padding: 1.5rem; margin-bottom: 1.25rem;
+        }
+        .admin-card h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+        .admin-card .meta { color: var(--ink-soft); font-size: 0.8rem; margin-bottom: 0.75rem; }
+        .admin-card p { color: var(--ink); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem; }
+        .admin-card-actions { display: flex; gap: 0.6rem; }
+        .btn-small {
+            font-size: 0.82rem; padding: 0.4rem 0.9rem; border-radius: 6px; cursor: pointer;
+            border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+        }
+        .btn-small.danger { color: var(--accent-warm); border-color: var(--accent-warm); }
+        .btn-small.primary { color: var(--accent); border-color: var(--accent); }
+
+        .admin-form { background: #fff; border: 1px dashed var(--rule); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+        .admin-form label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin: 0.9rem 0 0.3rem; }
+        .admin-form label:first-child { margin-top: 0; }
+        .admin-form input, .admin-form textarea, .admin-form select {
+            width: 100%; padding: 0.7rem; border-radius: 8px; border: 1px solid var(--rule);
+            background: var(--paper); color: var(--ink); font-family: var(--font-main); font-size: 0.95rem;
+        }
+        .admin-form textarea { min-height: 90px; resize: vertical; }
+        .status-msg { font-size: 0.85rem; margin-top: 0.75rem; min-height: 1.2em; }
+        .status-msg.ok { color: var(--accent); }
+        .status-msg.error { color: var(--accent-warm); }
+        .color-swatch { display: inline-block; width: 22px; height: 22px; border-radius: 50%; vertical-align: middle; margin-right: 8px; border: 1px solid var(--rule); }
+        .toggle-row { display: flex; align-items: center; gap: 0.6rem; margin: 0.9rem 0 0.3rem; }
+        .empty-state { color: var(--ink-soft); text-align: center; padding: 2rem; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="admin-wrap">
+
+        <!-- Shown if CMS_API_URL hasn't been configured yet -->
+        <div id="setup-warning">
+            <h2 style="margin-bottom: 1rem;">Админ-панель не подключена</h2>
+            <p style="color: var(--ink-soft); line-height: 1.7;">
+                Нужно один раз настроить Google Sheets backend — это в файле
+                <code>admin-backend/SETUP.md</code>. После настройки впишите
+                URL вашего Apps Script в переменную <code>CMS_API_URL</code>
+                в начале этого файла и в <code>app.js</code>.
+            </p>
+        </div>
+
+        <!-- Login -->
+        <div id="login-screen">
+            <h1 style="font-size: 1.8rem;">Вход в админ-панель</h1>
+            <p style="color: var(--ink-soft); margin-top: 0.5rem;">TheStarth · CMS</p>
+            <input type="password" id="login-password" placeholder="Пароль администратора" autocomplete="off">
+            <div id="login-error"></div>
+            <button class="btn-primary" style="width: 100%;" onclick="login()">Войти</button>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard">
+            <div class="admin-header">
+                <h1>Админ-панель <span class="text-premium">TheStarth</span></h1>
+                <button class="btn-small" onclick="logout()">Выйти</button>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="news" onclick="switchTab('news')">Новости</button>
+                <button class="admin-tab" data-tab="reviews" onclick="switchTab('reviews')">Отзывы</button>
+                <button class="admin-tab" data-tab="design" onclick="switchTab('design')">Оформление</button>
+                <button class="admin-tab" data-tab="announcement" onclick="switchTab('announcement')">Объявление</button>
+            </div>
+
+            <!-- NEWS -->
+            <div class="admin-panel active" id="panel-news">
+                <div class="admin-form">
+                    <label>Заголовок</label>
+                    <input type="text" id="news-title" placeholder="Например: Новый поток стартует 1 октября">
+                    <label>Текст</label>
+                    <textarea id="news-body" placeholder="Подробности новости..."></textarea>
+                    <label>Дата</label>
+                    <input type="date" id="news-date">
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="addNews()">Опубликовать новость</button>
+                    <div class="status-msg" id="news-status"></div>
+                </div>
+                <div id="news-items"><div class="empty-state">Загрузка…</div></div>
+            </div>
+
+            <!-- REVIEWS -->
+            <div class="admin-panel" id="panel-reviews">
+                <div class="admin-form">
+                    <label>Имя ученика</label>
+                    <input type="text" id="review-name" placeholder="Например: Азиза, Ташкент">
+                    <label>Оценка (1–5)</label>
+                    <select id="review-rating">
+                        <option value="5">5 ★★★★★</option>
+                        <option value="4">4 ★★★★</option>
+                        <option value="3">3 ★★★</option>
+                        <option value="2">2 ★★</option>
+                        <option value="1">1 ★</option>
+                    </select>
+                    <label>Текст отзыва</label>
+                    <textarea id="review-text" placeholder="Текст отзыва от ученика..."></textarea>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="addReview()">Добавить отзыв</button>
+                    <div class="status-msg" id="review-status"></div>
+                </div>
+                <div id="review-items"><div class="empty-state">Загрузка…</div></div>
+            </div>
+
+            <!-- DESIGN -->
+            <div class="admin-panel" id="panel-design">
+                <div class="admin-form">
+                    <label>Акцентный цвет сайта</label>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <input type="color" id="design-color" style="width: 60px; padding: 4px; height: 42px;">
+                        <input type="text" id="design-color-hex" placeholder="#1B6E4E" style="flex: 1;">
+                    </div>
+                    <p style="color: var(--ink-soft); font-size: 0.8rem; margin-top: 0.5rem;">Используется для кнопок, ссылок и акцентов по всему сайту.</p>
+
+                    <label>Логотип (URL картинки)</label>
+                    <input type="text" id="design-logo" placeholder="https://.../logo.png">
+                    <p style="color: var(--ink-soft); font-size: 0.8rem; margin-top: 0.5rem;">Оставьте пустым, чтобы использовать текущий значок. Загрузите новый логотип на любой хостинг картинок (например, imgur.com) и вставьте прямую ссылку сюда.</p>
+
+                    <button class="btn-primary" style="margin-top: 1.5rem;" onclick="saveDesign()">Сохранить оформление</button>
+                    <div class="status-msg" id="design-status"></div>
+                </div>
+            </div>
+
+            <!-- ANNOUNCEMENT -->
+            <div class="admin-panel" id="panel-announcement">
+                <div class="admin-form">
+                    <div class="toggle-row">
+                        <input type="checkbox" id="ann-active" style="width: auto;">
+                        <label style="margin: 0;">Показывать баннер объявления на сайте</label>
+                    </div>
+                    <label>Текст объявления</label>
+                    <input type="text" id="ann-text" placeholder="Например: Набор на зимний интенсив открыт — осталось 5 мест">
+                    <label>Ссылка (необязательно)</label>
+                    <input type="text" id="ann-link" placeholder="payment.html">
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="saveAnnouncement()">Сохранить</button>
+                    <div class="status-msg" id="ann-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Paste your deployed Apps Script /exec URL here — see admin-backend/SETUP.md
+        const CMS_API_URL = "";
+
+        let TOKEN = sessionStorage.getItem('starth_admin_token') || '';
+        let currentData = { settings: {}, news: [], reviews: [] };
+
+        if (!CMS_API_URL) {
+            document.getElementById('setup-warning').style.display = 'block';
+            document.getElementById('login-screen').style.display = 'none';
+        }
+
+        async function api(action, payload) {
+            const res = await fetch(CMS_API_URL, {
+                method: 'POST',
+                body: JSON.stringify({ token: TOKEN, action, payload })
+            });
+            if (!res.ok) {
+                throw new Error(`Сервер ответил ошибкой ${res.status}. Проверьте, что развёрнут как "Web app" с доступом "Anyone".`);
+            }
+            let json;
+            try {
+                json = await res.json();
+            } catch (e) {
+                throw new Error('Ответ сервера — не JSON. Обычно это значит, что ссылка неверная, или доступ не "Anyone", или скрипт не переразвёрнут после правок.');
+            }
+            return json;
+        }
+
+        async function login() {
+            const pw = document.getElementById('login-password').value.trim();
+            if (!pw) return;
+            const errEl = document.getElementById('login-error');
+            errEl.textContent = 'Проверяю…';
+            TOKEN = pw;
+            try {
+                const result = await api('verify', {});
+                if (result.ok) {
+                    sessionStorage.setItem('starth_admin_token', TOKEN);
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                    loadAll();
+                } else if (result.error === 'no_token_set') {
+                    errEl.textContent = 'В Script Properties скрипта нет свойства ADMIN_TOKEN — задайте его (см. SETUP.md, шаг 3).';
+                } else if (result.error === 'bad_token') {
+                    errEl.textContent = 'Пароль не совпадает со значением ADMIN_TOKEN в Script Properties. Проверьте пробелы/регистр.';
+                } else {
+                    errEl.textContent = 'Сервер ответил: ' + (result.error || 'неизвестная ошибка') + '. Это не про пароль — проверьте настройку таблицы (вкладки Settings/News/Reviews).';
+                }
+            } catch (e) {
+                errEl.textContent = 'Не удалось достучаться до скрипта: ' + e.message;
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('starth_admin_token');
+            location.reload();
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.admin-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+            document.querySelectorAll('.admin-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tab}`));
+        }
+
+        async function loadAll() {
+            const res = await fetch(`${CMS_API_URL}?action=admin_data&token=${encodeURIComponent(TOKEN)}`);
+            const data = await res.json();
+            if (!data.ok) return;
+            currentData = data;
+            renderNews();
+            renderReviews();
+            renderDesign();
+            renderAnnouncement();
+        }
+
+        // ── News ──
+        function renderNews() {
+            const wrap = document.getElementById('news-items');
+            if (!currentData.news.length) { wrap.innerHTML = '<div class="empty-state">Новостей пока нет.</div>'; return; }
+            wrap.innerHTML = '';
+            currentData.news.forEach(n => {
+                const published = String(n.published).toUpperCase() === 'TRUE';
+                const card = document.createElement('div');
+                card.className = 'admin-card';
+                card.innerHTML = `
+                    <h3>${n.title}</h3>
+                    <div class="meta">${n.date || ''} · ${published ? 'Опубликовано' : 'Скрыто'}</div>
+                    <p>${n.body}</p>
+                    <div class="admin-card-actions">
+                        <button class="btn-small primary" onclick="toggleNews('${n.id}', ${!published})">${published ? 'Скрыть' : 'Опубликовать'}</button>
+                        <button class="btn-small danger" onclick="deleteNews('${n.id}')">Удалить</button>
+                    </div>
+                `;
+                wrap.appendChild(card);
+            });
+        }
+        async function addNews() {
+            const title = document.getElementById('news-title').value.trim();
+            const body = document.getElementById('news-body').value.trim();
+            const date = document.getElementById('news-date').value || new Date().toISOString().slice(0, 10);
+            const statusEl = document.getElementById('news-status');
+            if (!title || !body) { statusEl.textContent = 'Заполните заголовок и текст.'; statusEl.className = 'status-msg error'; return; }
+            const result = await api('add_news', { title, body, date });
+            if (result.ok) {
+                statusEl.textContent = 'Опубликовано.'; statusEl.className = 'status-msg ok';
+                document.getElementById('news-title').value = '';
+                document.getElementById('news-body').value = '';
+                loadAll();
+            } else { statusEl.textContent = 'Ошибка: ' + result.error; statusEl.className = 'status-msg error'; }
+        }
+        async function toggleNews(id, publish) {
+            await api('update_news', { id, published: publish });
+            loadAll();
+        }
+        async function deleteNews(id) {
+            if (!confirm('Удалить новость?')) return;
+            await api('delete_news', { id });
+            loadAll();
+        }
+
+        // ── Reviews ──
+        function renderReviews() {
+            const wrap = document.getElementById('review-items');
+            if (!currentData.reviews.length) { wrap.innerHTML = '<div class="empty-state">Отзывов пока нет.</div>'; return; }
+            wrap.innerHTML = '';
+            currentData.reviews.forEach(r => {
+                const published = String(r.published).toUpperCase() === 'TRUE';
+                const card = document.createElement('div');
+                card.className = 'admin-card';
+                card.innerHTML = `
+                    <h3>${r.name} — ${'★'.repeat(Number(r.rating) || 5)}</h3>
+                    <div class="meta">${published ? 'Опубликовано' : 'Скрыто'}</div>
+                    <p>${r.text}</p>
+                    <div class="admin-card-actions">
+                        <button class="btn-small primary" onclick="toggleReview('${r.id}', ${!published})">${published ? 'Скрыть' : 'Опубликовать'}</button>
+                        <button class="btn-small danger" onclick="deleteReview('${r.id}')">Удалить</button>
+                    </div>
+                `;
+                wrap.appendChild(card);
+            });
+        }
+        async function addReview() {
+            const name = document.getElementById('review-name').value.trim();
+            const rating = document.getElementById('review-rating').value;
+            const text = document.getElementById('review-text').value.trim();
+            const statusEl = document.getElementById('review-status');
+            if (!name || !text) { statusEl.textContent = 'Заполните имя и текст отзыва.'; statusEl.className = 'status-msg error'; return; }
+            const result = await api('add_review', { name, rating, text, date: new Date().toISOString().slice(0, 10) });
+            if (result.ok) {
+                statusEl.textContent = 'Добавлено.'; statusEl.className = 'status-msg ok';
+                document.getElementById('review-name').value = '';
+                document.getElementById('review-text').value = '';
+                loadAll();
+            } else { statusEl.textContent = 'Ошибка: ' + result.error; statusEl.className = 'status-msg error'; }
+        }
+        async function toggleReview(id, publish) {
+            await api('update_review', { id, published: publish });
+            loadAll();
+        }
+        async function deleteReview(id) {
+            if (!confirm('Удалить отзыв?')) return;
+            await api('delete_review', { id });
+            loadAll();
+        }
+
+        // ── Design ──
+        function renderDesign() {
+            const color = currentData.settings.accent_color || '#1B6E4E';
+            document.getElementById('design-color').value = color;
+            document.getElementById('design-color-hex').value = color;
+            document.getElementById('design-logo').value = currentData.settings.logo_image_url || '';
+        }
+        document.getElementById('design-color').addEventListener('input', e => {
+            document.getElementById('design-color-hex').value = e.target.value;
+        });
+        async function saveDesign() {
+            const accent_color = document.getElementById('design-color-hex').value.trim();
+            const logo_image_url = document.getElementById('design-logo').value.trim();
+            const statusEl = document.getElementById('design-status');
+            const result = await api('save_settings', { accent_color, logo_image_url });
+            statusEl.textContent = result.ok ? 'Сохранено. Изменения появятся на сайте при следующей загрузке страницы.' : 'Ошибка: ' + result.error;
+            statusEl.className = result.ok ? 'status-msg ok' : 'status-msg error';
+        }
+
+        // ── Announcement ──
+        function renderAnnouncement() {
+            document.getElementById('ann-active').checked = String(currentData.settings.announcement_active).toUpperCase() === 'TRUE';
+            document.getElementById('ann-text').value = currentData.settings.announcement_text || '';
+            document.getElementById('ann-link').value = currentData.settings.announcement_link || '';
+        }
+        async function saveAnnouncement() {
+            const announcement_active = document.getElementById('ann-active').checked ? 'TRUE' : 'FALSE';
+            const announcement_text = document.getElementById('ann-text').value.trim();
+            const announcement_link = document.getElementById('ann-link').value.trim();
+            const statusEl = document.getElementById('ann-status');
+            const result = await api('save_settings', { announcement_active, announcement_text, announcement_link });
+            statusEl.textContent = result.ok ? 'Сохранено.' : 'Ошибка: ' + result.error;
+            statusEl.className = result.ok ? 'status-msg ok' : 'status-msg error';
+        }
+
+        // Auto-login if token already in session
+        if (CMS_API_URL && TOKEN) {
+            api('verify', {}).then(result => {
+                if (result.ok) {
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                    loadAll();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

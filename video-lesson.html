@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Видеоурок — TheStarth</title>
+    <meta name="description" content="Онлайн видеоурок TheStarth.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;600&family=Fraunces:opsz,wght@9..144,600..900&display=swap" rel="stylesheet">
+    <style>
+        main.lesson-main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 7rem 1.5rem 4rem;
+        }
+
+        /* Join screen */
+        #join-screen { max-width: 480px; margin: 3rem auto; text-align: center; }
+        #join-screen h1 { font-size: 1.8rem; margin-bottom: 0.75rem; }
+        #join-screen p { color: var(--ink-soft); margin-bottom: 2rem; line-height: 1.6; }
+        #join-screen input {
+            width: 100%; padding: 0.9rem; border-radius: 8px; border: 1px solid var(--rule);
+            background: #fff; color: var(--ink); font-size: 1rem; margin-bottom: 1rem;
+        }
+        .teacher-quick-links {
+            display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-top: 2rem;
+        }
+        .teacher-quick-links a {
+            font-size: 0.85rem; color: var(--ink-soft); border: 1px solid var(--rule);
+            border-radius: 20px; padding: 0.4rem 1rem;
+        }
+        .teacher-quick-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Meeting room */
+        #meeting-screen { display: none; }
+        .lesson-topbar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;
+        }
+        .lesson-topbar h2 { font-size: 1.1rem; }
+        #jitsi-container {
+            width: 100%; height: 70vh; min-height: 480px;
+            border-radius: 12px; overflow: hidden; border: 1px solid var(--rule);
+            background: #111;
+        }
+        .lesson-note {
+            margin-top: 1rem; font-size: 0.82rem; color: var(--ink-soft); text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" style="text-decoration: none;">
+                <div class="logo" style="display: flex; align-items: center; gap: 12px; letter-spacing: normal;">
+                    <span class="site-logo-icon"><svg width="45" height="45" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(50, 50) rotate(45) translate(-50, -50)">
+                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="#D4AF37" stroke-width="4"/>
+                            <rect x="20" y="20" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                            <rect x="70" y="20" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                            <rect x="20" y="70" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                            <rect x="70" y="70" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                        </g>
+                    </svg></span>
+                    <div style="display: flex; flex-direction: column; justify-content: center; transform: translateY(2px);">
+                        <span style="font-family: 'Dancing Script', cursive; font-size: 2.2rem; line-height: 0.85; color: var(--ink); font-weight: 700; letter-spacing: 0;">TheStarth</span>
+                        <span style="font-family: 'Inter', sans-serif; font-size: 0.55rem; letter-spacing: 2px; color: var(--ink-soft); text-transform: uppercase; margin-top: 4px;">Start with the best.</span>
+                    </div>
+                </div>
+            </a>
+            <button class="mobile-toggle" aria-label="Toggle menu">☰</button>
+            <div class="nav-links">
+                <a href="index.html#courses">Курсы</a>
+                <a href="about.html">О нас</a>
+                <a href="dashboard.html" class="btn-outline">Личный кабинет</a>
+                <div class="lang-switch">
+                    <a href="#" onclick="changeLanguage('ru'); return false;" class="lang-btn active">RU</a>
+                    <a href="#" onclick="changeLanguage('uz'); return false;" class="lang-btn">UZ</a>
+                    <a href="#" onclick="changeLanguage('en'); return false;" class="lang-btn">EN</a>
+                </div>
+                <div id="google_translate_element"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lesson-main">
+
+        <!-- Before joining -->
+        <div id="join-screen">
+            <h1>Видеоурок</h1>
+            <p>Введите название комнаты, которое прислал куратор в Telegram/WhatsApp, либо выберите преподавателя ниже для входа в его постоянную комнату.</p>
+            <input type="text" id="room-input" placeholder="Например: firdavs-mon-1800">
+            <button class="btn-primary" style="width: 100%;" onclick="joinRoom()">Войти на урок</button>
+
+            <div class="teacher-quick-links" id="teacher-links"></div>
+        </div>
+
+        <!-- Meeting -->
+        <div id="meeting-screen">
+            <div class="lesson-topbar">
+                <h2>Комната: <span id="room-name-label" style="color: var(--accent);"></span></h2>
+                <div style="display:flex; gap:0.6rem;">
+                    <button class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="copyLink()">Скопировать ссылку</button>
+                    <button class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="leaveRoom()">Выйти</button>
+                </div>
+            </div>
+            <div id="jitsi-container"></div>
+            <p class="lesson-note">Работает через Jitsi Meet — бесплатный видеосервис с открытым кодом, регистрация не требуется.</p>
+        </div>
+    </main>
+
+    <script src="https://meet.jit.si/external_api.js"></script>
+    <script>
+        const TEACHERS_FOR_ROOMS = {
+            firdavs: 'Фирдавс', sadokat: 'Садокат', javokhir: 'Жавохир', behruz: 'Бехруз', azizbek: 'Азизбек'
+        };
+        const linksWrap = document.getElementById('teacher-links');
+        Object.entries(TEACHERS_FOR_ROOMS).forEach(([id, name]) => {
+            const a = document.createElement('a');
+            a.href = `video-lesson.html?room=TheStarth-${id}`;
+            a.textContent = name;
+            linksWrap.appendChild(a);
+        });
+
+        let jitsiApi = null;
+
+        function startMeeting(room) {
+            document.getElementById('join-screen').style.display = 'none';
+            document.getElementById('meeting-screen').style.display = 'block';
+            document.getElementById('room-name-label').textContent = room;
+
+            const userName = localStorage.getItem('userName') || 'Гость';
+            jitsiApi = new JitsiMeetExternalAPI('meet.jit.si', {
+                roomName: room,
+                parentNode: document.getElementById('jitsi-container'),
+                width: '100%',
+                height: '100%',
+                userInfo: { displayName: userName },
+                configOverwrite: { prejoinPageEnabled: true },
+                interfaceConfigOverwrite: { SHOW_JITSI_WATERMARK: false }
+            });
+
+            const url = new URL(window.location);
+            url.searchParams.set('room', room);
+            window.history.replaceState({}, '', url);
+        }
+
+        function joinRoom() {
+            const raw = document.getElementById('room-input').value.trim();
+            if (!raw) return;
+            const room = raw.startsWith('TheStarth-') ? raw : `TheStarth-${raw}`;
+            startMeeting(room);
+        }
+
+        function leaveRoom() {
+            if (jitsiApi) { jitsiApi.dispose(); jitsiApi = null; }
+            document.getElementById('meeting-screen').style.display = 'none';
+            document.getElementById('join-screen').style.display = 'block';
+            const url = new URL(window.location);
+            url.searchParams.delete('room');
+            window.history.replaceState({}, '', url);
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Ссылка скопирована!');
+            });
+        }
+
+        // Auto-join if ?room= is present in the URL
+        const params = new URLSearchParams(window.location.search);
+        const roomParam = params.get('room');
+        if (roomParam) startMeeting(roomParam);
+    </script>
+
+    <script src="app.js"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                includedLanguages: 'ru,en,uz',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+        function changeLanguage(langCode) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll(`.lang-btn[onclick*="${langCode}"]`).forEach(btn => btn.classList.add('active'));
+
+            let attempts = 0;
+            (function trySwitch() {
+                const select = document.querySelector('.goog-te-combo');
+                if (select) {
+                    select.value = langCode;
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                } else if (attempts < 20) {
+                    attempts++;
+                    setTimeout(trySwitch, 250);
+                }
+            })();
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

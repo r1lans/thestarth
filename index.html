@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheStarth - Платформа развития навыков: английский и математика</title>
+    <meta name="description" content="TheStarth — платформа развития навыков. Подготовка к IELTS и SAT в Ташкенте. Результаты от 7.0+">
+    <meta property="og:title" content="TheStarth">
+    <meta property="og:description" content="Подготовка к IELTS и SAT с результатом">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Yandex.Metrika / Google Analytics -->
+    <script>
+      console.log("Analytics loaded");
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" style="text-decoration: none;">
+                <div class="logo" style="display: flex; align-items: center; gap: 12px; letter-spacing: normal;">
+                    <span class="site-logo-icon"><svg width="45" height="45" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(50, 50) rotate(45) translate(-50, -50)">
+                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="#D4AF37" stroke-width="4"/>
+                            <rect x="20" y="20" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                            <rect x="70" y="20" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                            <rect x="20" y="70" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                            <rect x="70" y="70" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                        </g>
+                    </svg></span>
+                    <div style="display: flex; flex-direction: column; justify-content: center; transform: translateY(2px);">
+                        <span style="font-family: 'Dancing Script', cursive; font-size: 2.2rem; line-height: 0.85; color: var(--ink); font-weight: 700; letter-spacing: 0;">TheStarth</span>
+                        <span style="font-family: 'Inter', sans-serif; font-size: 0.55rem; letter-spacing: 2px; color: var(--ink-soft); text-transform: uppercase; margin-top: 4px;">Start with the best.</span>
+                    </div>
+                </div>
+            </a>
+            <button class="mobile-toggle" aria-label="Toggle menu">☰</button>
+            <div class="nav-links">
+                <a href="#courses">Курсы</a>
+                <a href="#certificates">Сертификаты</a>
+                <a href="about.html">О нас</a>
+                <a href="#pricing">Цены</a>
+                <a href="mock-exam.html" style="color: var(--accent); font-weight: bold; position: relative;">Mock Exam <span style="position: absolute; top: -12px; right: -15px; background: red; color: white; font-size: 0.55rem; padding: 2px 4px; border-radius: 4px; text-transform: uppercase;">New</span></a>
+                <a href="payment.html" class="btn-outline" style="border-color: var(--accent); color: var(--accent);">Оплата</a>
+                <a href="dashboard.html" class="btn-outline">Личный кабинет</a>
+                <div class="lang-switch">
+                    <a href="#" onclick="changeLanguage('ru'); return false;" class="lang-btn active">RU</a>
+                    <a href="#" onclick="changeLanguage('uz'); return false;" class="lang-btn">UZ</a>
+                    <a href="#" onclick="changeLanguage('en'); return false;" class="lang-btn">EN</a>
+                </div>
+                <div id="google_translate_element"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <h1>Подготовка к <span class="text-premium">IELTS</span>, SAT и математике</h1>
+                <p class="hero-lede">Небольшие группы, преподаватели с собственным баллом IELTS 8.0+ и понятный план до результата — обычно 3–4 месяца до нужного балла.</p>
+                <div class="hero-actions">
+                    <button class="btn-primary open-modal-btn">Записаться на пробный урок</button>
+                    <a href="level-test.html" class="hero-link">Пройти тест уровня</a>
+                </div>
+                <div class="hero-trust">
+                    <span><strong id="students-count">1,200+</strong> учеников</span>
+                    <span><strong id="certs-count">850+</strong> сертификатов</span>
+                    <span><strong id="teachers-count">45+</strong> преподавателей</span>
+                </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="score-card">
+                    <div class="score-card-head">
+                        <span>IELTS · Score Report</span>
+                        <span>Пробный тест</span>
+                    </div>
+                    <div class="score-card-overall">
+                        <span class="score-card-band">7.5</span>
+                        <span class="score-card-band-label">Overall Band</span>
+                    </div>
+                    <ul class="score-card-rows">
+                        <li><span>Listening</span><span>8.0</span></li>
+                        <li><span>Reading</span><span>7.5</span></li>
+                        <li><span>Writing</span><span>7.0</span></li>
+                        <li><span>Speaking</span><span>7.5</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div style="text-align: center; padding: 0 2rem 1rem;">
+        <a href="math-test.html" style="color: var(--ink-soft); font-size: 0.9rem; text-decoration: underline;">Готовитесь к SAT Math? Пройдите тест уровня по математике →</a>
+    </div>
+
+    <!-- Partners Section (Point 4) -->
+    <section class="partners-section">
+        <div class="partners-title">Официальные форматы и признанные стандарты обучения</div>
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <div class="partner-logo">British Council</div>
+                <div class="partner-logo">Cambridge Assessment</div>
+                <div class="partner-logo">IDP IELTS Partner</div>
+                <div class="partner-logo">College Board (SAT)</div>
+                <div class="partner-logo">Pearson PTE</div>
+                <!-- Duplicate for smooth seamless carousel scrolling -->
+                <div class="partner-logo">British Council</div>
+                <div class="partner-logo">Cambridge Assessment</div>
+                <div class="partner-logo">IDP IELTS Partner</div>
+                <div class="partner-logo">College Board (SAT)</div>
+                <div class="partner-logo">Pearson PTE</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How we work Section Stepper (Point 15) -->
+    <section id="how-it-works" style="background: var(--paper-alt); position: relative;">
+        <h2 class="section-title">Путь студента: <span>Как мы работаем</span></h2>
+        <div class="stepper-container">
+            <div class="stepper-line"></div>
+            <div class="stepper-line-active" id="step-line-progress"></div>
+            
+            <div class="stepper-item active reveal-up" data-step="1">
+                <div class="stepper-icon">1</div>
+                <div class="stepper-content">
+                    <h3>Диагностика</h3>
+                    <p>Бесплатный пробный урок и тест на уровень знаний</p>
+                </div>
+            </div>
+            
+            <div class="stepper-item reveal-up" data-step="2" style="transition-delay: 0.15s;">
+                <div class="stepper-icon">2</div>
+                <div class="stepper-content">
+                    <h3>Личный план</h3>
+                    <p>Индивидуальная стратегия до целевого балла</p>
+                </div>
+            </div>
+            
+            <div class="stepper-item reveal-up" data-step="3" style="transition-delay: 0.3s;">
+                <div class="stepper-icon">3</div>
+                <div class="stepper-content">
+                    <h3>Интенсив</h3>
+                    <p>Интерактивные занятия + разборы домашних заданий</p>
+                </div>
+            </div>
+            
+            <div class="stepper-item reveal-up" data-step="4" style="transition-delay: 0.45s;">
+                <div class="stepper-icon">4</div>
+                <div class="stepper-content">
+                    <h3>Mock Exams</h3>
+                    <p>Регулярные пробные экзамены в условиях реального теста</p>
+                </div>
+            </div>
+            
+            <div class="stepper-item reveal-up" data-step="5" style="transition-delay: 0.6s;">
+                <div class="stepper-icon">5</div>
+                <div class="stepper-content">
+                    <h3>Сертификат</h3>
+                    <p>Сдача на высокий балл и получение сертификата</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses">
+        <h2 class="section-title">Наши <span>Курсы</span></h2>
+        <div class="grid-container">
+            <div class="card reveal-up">
+                <span class="card-badge tag-ielts">Английский</span>
+                <h3>IELTS Preparation</h3>
+                <p>Полный курс подготовки к международному экзамену. От уровня Intermediate до Advanced.</p>
+                <ul class="card-features">
+                    <li>Длительность: 3-6 месяцев</li>
+                    <li>72 урока</li>
+                    <li>Официальный сертификат</li>
+                </ul>
+                <div class="price">$15 <span>/ урок</span></div>
+                <a href="index.html#courses" class="btn-outline" style="display: block; width: 100%; text-align: center; box-sizing: border-box;">Подробнее</a>
+            </div>
+
+            <div class="card reveal-up" style="transition-delay: 0.15s;">
+                <span class="card-badge tag-sat">Математика</span>
+                <h3>SAT Math</h3>
+                <p>Интенсивная подготовка к математической части SAT для поступления в зарубежные вузы.</p>
+                <ul class="card-features">
+                    <li>Длительность: 4 месяца</li>
+                    <li>48 уроков</li>
+                    <li>Сертификат TheStarth</li>
+                </ul>
+                <div class="price">$15 <span>/ урок</span></div>
+                <a href="index.html#courses" class="btn-outline" style="display: block; width: 100%; text-align: center; box-sizing: border-box;">Подробнее</a>
+            </div>
+
+            <div class="card reveal-up" style="border-color: var(--accent); transition-delay: 0.3s;">
+                <span class="card-badge tag-olympiad">Олимпиады</span>
+                <h3>Академическая Математика & Олимпиады</h3>
+                <p>Углубленная математика для школьников и подготовка к престижным олимпиадам.</p>
+                <ul class="card-features">
+                    <li>Длительность: 6-12 месяцев</li>
+                    <li>96 уроков</li>
+                    <li>Сертификат TheStarth</li>
+                </ul>
+                <div class="price">$15 <span>/ урок</span></div>
+                <a href="index.html#courses" class="btn-outline" style="display: block; width: 100%; text-align: center; box-sizing: border-box;">Подробнее</a>
+            </div>
+
+            <div class="card reveal-up" style="transition-delay: 0.45s;">
+                <span class="card-badge tag-ege">Школьная программа</span>
+                <h3>Подготовка к ЕГЭ / ОГЭ</h3>
+                <p>Структурированная программа для сдачи государственных экзаменов на высший балл.</p>
+                <ul class="card-features">
+                    <li>Длительность: 9 месяцев</li>
+                    <li>108 уроков</li>
+                    <li>Сертификат TheStarth</li>
+                </ul>
+                <div class="price">$15 <span>/ урок</span></div>
+                <a href="index.html#courses" class="btn-outline" style="display: block; width: 100%; text-align: center; box-sizing: border-box;">Подробнее</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" style="background: var(--paper-alt);">
+        <h2 class="section-title">Инвестиции в <span>Образование</span></h2>
+        
+        <!-- Interactive Format Switcher -->
+        <div class="pricing-toggle-wrap">
+            <div class="pricing-toggle-container">
+                <button class="pricing-toggle-btn active" id="btn-pricing-ind" onclick="setPricingMode('ind')">Индивидуально 1-на-1</button>
+                <button class="pricing-toggle-btn" id="btn-pricing-grp" onclick="setPricingMode('grp')">Мини-группы (до 3 чел)</button>
+            </div>
+            <div class="pricing-toggle-desc" id="pricing-toggle-desc">
+                Персональный ментор, 100% внимания преподавателя, гибкий график под ваши цели. Стоимость — $15 за 90‑минутный урок.
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <!-- Card 1: Trial -->
+            <div class="card">
+                <h3>Пробный урок</h3>
+                <p id="trial-card-desc">Оценить уровень и методику (Индивидуально)</p>
+                <div class="price">$<span class="price-amount" id="price-trial" data-ind="15" data-grp="12">15</span> <span>/ урок</span></div>
+                <ul class="card-features" id="trial-card-features">
+                    <li>1 полноценное занятие (90 минут)</li>
+                    <li>Диагностика знаний экспертом</li>
+                    <li>Индивидуальная траектория</li>
+                </ul>
+                <button class="btn-outline open-modal-btn" style="width: 100%;">Выбрать программу</button>
+            </div>
+
+            <!-- Card 2: Standard -->
+            <div class="card" style="border-color: var(--accent); position: relative;">
+                <div class="pulse-badge" style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.8rem;">ПОПУЛЯРНЫЙ</div>
+                <h3>Стандарт (1 Месяц)</h3>
+                <p>Занятия через день (3 раза в неделю)</p>
+                <div class="price">$<span class="price-amount" id="price-standard" data-ind="180" data-grp="144">180</span> <span>/ месяц</span></div>
+                <ul class="card-features" id="standard-card-features">
+                    <li>12 занятий в месяц (90 минут каждое)</li>
+                    <li>Полный доступ к Telegram-базе</li>
+                    <li>Регулярная проверка ДЗ с разбором</li>
+                </ul>
+                <button class="btn-primary open-modal-btn" style="width: 100%;">Выбрать программу</button>
+            </div>
+
+            <!-- Card 3: Intensive -->
+            <div class="card">
+                <h3>Интенсив (1 Месяц)</h3>
+                <p>Занятия каждый день (6 раз в неделю)</p>
+                <div class="price">$<span class="price-amount" id="price-intensive" data-ind="360" data-grp="288">360</span> <span>/ месяц</span></div>
+                <ul class="card-features" id="intensive-card-features">
+                    <li>24 занятия в месяц (максимальный темп)</li>
+                    <li>Полное погружение в среду</li>
+                    <li>Ежедневный фидбек преподавателей</li>
+                </ul>
+                <button class="btn-outline open-modal-btn" style="width: 100%;">Выбрать программу</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Starth Rewards & Loyalty Club Section -->
+    <section class="loyalty-section" id="rewards">
+        <h2 class="section-title">Центр <span>Привилегий & Скидок</span></h2>
+        <p style="color: var(--ink-soft); text-align: center; max-width: 600px; margin: -2rem auto 3rem auto; font-size: 1.05rem;">
+            Мы верим, что сарафанное радио и стремление к знаниям должны вознаграждаться. Выполняйте простые действия и учитесь с максимальной выгодой!
+        </p>
+
+        <div class="loyalty-grid">
+            <!-- Card 1: Referral -->
+            <div class="loyalty-card">
+                <span class="loyalty-badge">20% скидка</span>
+                <div>
+                    <div class="loyalty-icon">🤝</div>
+                    <h3>Реферальная программа</h3>
+                    <p>Пригласите друга обучаться в TheStarth. Когда он запишется на любой курс, <strong>вы получите скидку 20%</strong> на следующий месяц обучения, а ваш друг — <strong>10% на первый месяц!</strong></p>
+                </div>
+                <div style="margin-top: auto; width: 100%;">
+                    <button class="btn-primary" style="width: 100%;" onclick="generateReferralLink()">Получить реф-ссылку</button>
+                </div>
+            </div>
+
+            <!-- Card 2: Quests -->
+            <div class="loyalty-card">
+                <span class="loyalty-badge">Бонусы</span>
+                <div>
+                    <div class="loyalty-icon">⚡</div>
+                    <h3>Интерактивные квесты</h3>
+                    <p>Выполняйте задания от академии и забирайте полезные учебные материалы и скидки:</p>
+                    <div class="loyalty-quests" style="margin-top: auto;">
+                        <a href="level-test.html" class="quest-item" id="quest-level-test" style="text-decoration: none; color: inherit;">
+                            <div class="quest-checkbox" id="chk-level-test">✓</div>
+                            <div>
+                                <strong style="display:block; color: var(--ink);">Пройти тест на уровень</strong>
+                                <span style="color: var(--accent);">Награда: скидка 10% на первый месяц</span>
+                            </div>
+                        </a>
+                        <a href="https://t.me/TheStarthChannel" target="_blank" class="quest-item" id="quest-telegram" onclick="completeTelegramQuest(event)" style="text-decoration: none; color: inherit;">
+                            <div class="quest-checkbox" id="chk-telegram">✓</div>
+                            <div>
+                                <strong style="display:block; color: var(--ink);">Подписка на Telegram-канал</strong>
+                                <span style="color: var(--accent);">Награда: Книга IELTS Writing & Speaking PDF</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Promo Codes -->
+            <div class="loyalty-card">
+                <span class="loyalty-badge">Купоны</span>
+                <div>
+                    <div class="loyalty-icon">🎟️</div>
+                    <h3>Активация промокода</h3>
+                    <p>У вас есть промокод или купон от нашей академии? Введите его ниже, чтобы мгновенно активировать скидку на обучение!</p>
+                </div>
+                <div style="margin-top: auto; width: 100%;">
+                    <div class="promo-input-group" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem;">
+                        <input type="text" class="promo-input" id="promo-code-input" placeholder="Промокод" style="flex: 1 1 140px;">
+                        <button class="promo-btn" onclick="applyPromoCode()" style="flex: 0 0 auto;">Применить</button>
+                    </div>
+                    <div class="promo-feedback" id="promo-feedback"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Notification container -->
+    <div class="starth-toast" id="starth-toast">
+        <span class="starth-toast-icon">✨</span>
+        <span id="starth-toast-message">Ссылка скопирована!</span>
+    </div>
+
+
+
+    <!-- Certificates Section -->
+    <section id="certificates" style="background: var(--paper-alt); text-align: center;">
+        <h2 class="section-title">Официальные <span>Сертификаты</span></h2>
+        <p style="color: var(--ink-soft); max-width: 600px; margin: 0 auto 3rem;">Наши сертификаты признаются ведущими вузами и работодателями. Каждый сертификат имеет уникальный QR-код для верификации.</p>
+        <div style="background: #fff; border: 2px solid var(--accent); max-width: 700px; margin: 0 auto; padding: 4rem 2rem; border-radius: 4px; position: relative; box-shadow: 0 20px 50px rgba(24, 27, 32, 0.08);">
+            <h1 style="color: var(--accent); font-family: 'Times New Roman', serif;">CERTIFICATE</h1>
+            <p style="margin: 1rem 0; letter-spacing: 2px;">OF ACHIEVEMENT</p>
+            <p style="color: var(--ink-soft); margin-bottom: 2rem;">This is proudly presented to</p>
+            
+            <input type="text" id="cert-name-input" placeholder="Введите ваше имя" autocomplete="off" spellcheck="false" maxlength="30">
+            
+            <p style="color: var(--ink-soft);">For successfully completing the IELTS Preparation Course</p>
+            
+            <!-- QR Placeholder -->
+            <div style="position: absolute; bottom: 2rem; right: 2rem; width: 80px; height: 80px; background: white; padding: 5px;">
+                <div style="width: 100%; height: 100%; background: repeating-linear-gradient(45deg, #000, #000 5px, #fff 5px, #fff 10px);"></div>
+            </div>
+        </div>
+        <div class="mt-2">
+            <input type="text" id="cert-input" placeholder="Введите номер сертификата..." style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); width: 300px; margin-right: 10px;">
+            <button class="btn-primary" id="verify-cert-btn">Проверить</button>
+            <p id="cert-result" style="margin-top: 1rem; display: none;"></p>
+        </div>
+    </section>
+
+
+
+    <!-- News & Announcements (populated from the admin panel; hidden until something is published) -->
+    <section id="news" style="display:none; background: var(--paper-alt); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);">
+        <h2 class="section-title">Новости <span>и объявления</span></h2>
+        <div id="news-list" style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;"></div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews">
+        <h2 class="section-title">Отзывы <span>Учеников</span></h2>
+        <div class="grid-container" id="reviews-list">
+            <div class="card reveal-up">
+                <div class="stars">★★★★★</div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <img src="images/aziza.jpg" alt="Азиза" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>
+                        <h4 style="margin: 0;">Азиза, Ташкент</h4>
+                        <span style="color: var(--ink-soft); font-size: 0.8rem;">IELTS 7.0</span>
+                    </div>
+                </div>
+                <p>"Благодаря <a href="about.html#teachers" style="color: var(--accent);">Фирдавсу</a> я сдала IELTS на 7.0 всего после 3 месяцев обучения! Очень понятные объяснения и отличная практика."</p>
+            </div>
+            <div class="card reveal-up" style="transition-delay: 0.1s;">
+                <div class="stars">★★★★★</div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <img src="images/timur.jpg" alt="Тимур" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>
+                        <h4 style="margin: 0;">Тимур, Алматы</h4>
+                        <span style="color: var(--ink-soft); font-size: 0.8rem;">SAT Math 780</span>
+                    </div>
+                </div>
+                <p>"<a href="about.html#teachers" style="color: var(--accent);">Бехруз</a> — лучший преподаватель математики. Мы прорешали все типы задач, и на реальном экзамене мне было очень легко. Поступил в желаемый вуз!"</p>
+            </div>
+            <div class="card reveal-up" style="transition-delay: 0.2s;">
+                <div class="stars">★★★★★</div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <img src="images/madina.jpg" alt="Мадина" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>
+                        <h4 style="margin: 0;">Мадина, Астана</h4>
+                        <span style="color: var(--ink-soft); font-size: 0.8rem;">IELTS 8.0</span>
+                    </div>
+                </div>
+                <p>"<a href="about.html#teachers" style="color: var(--accent);">Садокат</a> помогла мне преодолеть языковой барьер. Ее уроки — это всегда что-то новое и интересное. Writing теперь моя сильная сторона."</p>
+            </div>
+            <div class="card reveal-up" style="transition-delay: 0.3s;">
+                <div class="stars">★★★★★</div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <img src="images/doston.jpg" alt="Достон" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>
+                        <h4 style="margin: 0;">Достон, Самарканд</h4>
+                        <span style="color: var(--ink-soft); font-size: 0.8rem;">IELTS 7.0</span>
+                    </div>
+                </div>
+                <p>"<a href="about.html#teachers" style="color: var(--accent);">Жавохир</a> помог мне сдать IELTS на 7.0 за короткий срок! У него отличный подход к Speaking, уроки проходят очень интересно."</p>
+            </div>
+            <div class="card reveal-up" style="transition-delay: 0.4s;">
+                <div class="stars">★★★★★</div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <img src="images/rustam.jpg" alt="Рустам" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>
+                        <h4 style="margin: 0;">Рустам, Бухара</h4>
+                        <span style="color: var(--ink-soft); font-size: 0.8rem;">Олимпиада по Математике</span>
+                    </div>
+                </div>
+                <p>"<a href="about.html#teachers" style="color: var(--accent);">Азизбек</a> подготовил меня к сложной олимпиаде. Благодаря его объяснениям и индивидуальному подходу я занял призовое место!"</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="results.html" class="btn-outline">Посмотреть все результаты и сертификаты учеников →</a>
+        </div>
+    </section>
+
+    <!-- Blog & News Section (Point 7) -->
+    <section id="blog" style="background: var(--paper); border-top: 1px solid var(--rule);">
+        <h2 class="section-title">Академический <span>Блог и Советы</span></h2>
+        <p style="color: var(--ink-soft); text-align: center; max-width: 600px; margin: -2rem auto 3rem auto; font-size: 1.05rem;">Полезные материалы, разборы и стратегии от экспертов нашей академии.</p>
+        
+        <div class="blog-grid">
+            <!-- Card 1 -->
+            <div class="blog-card">
+                <div class="blog-img-container">
+                    <span class="blog-img-placeholder">🇬🇧</span>
+                    <span class="blog-badge">IELTS</span>
+                </div>
+                <div class="blog-body">
+                    <div class="blog-meta-info">22 Мая, 2026 • 5 мин чтения</div>
+                    <h3>Секреты сдачи IELTS Speaking на балл 7.5+</h3>
+                    <p>Разбираем ключевые критерии оценки Speaking: беглость, словарный запас, грамматическая точность и произношение. Пошаговые шаблоны ответов на Part 3.</p>
+                    <a href="https://t.me/TheStarthChannel" target="_blank" class="blog-link">Читать в Telegram →</a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="blog-card">
+                <div class="blog-img-container">
+                    <span class="blog-img-placeholder">🔢</span>
+                    <span class="blog-badge">SAT Math</span>
+                </div>
+                <div class="blog-body">
+                    <div class="blog-meta-info">18 Мая, 2026 • 7 мин чтения</div>
+                    <h3>Как взломать SAT Math: 3 фишки от Бехруза</h3>
+                    <p>Математическая секция SAT — это не только формулы, но и жесткий тайм-менеджмент. Узнайте, как использовать графический калькулятор Desmos на максимум.</p>
+                    <a href="https://t.me/TheStarthChannel" target="_blank" class="blog-link">Читать в Telegram →</a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="blog-card">
+                <div class="blog-img-container">
+                    <span class="blog-img-placeholder">🏆</span>
+                    <span class="blog-badge">Математика</span>
+                </div>
+                <div class="blog-body">
+                    <div class="blog-meta-info">10 Мая, 2026 • 6 мин чтения</div>
+                    <h3>Олимпиадная математика vs Школьная программа</h3>
+                    <p>В чем принципиальная разница подходов к решению задач и как участие в математических олимпиадах помогает поступить в престижные мировые университеты.</p>
+                    <a href="https://t.me/TheStarthChannel" target="_blank" class="blog-link">Читать в Telegram →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" style="background: var(--paper-alt);">
+        <h2 class="section-title">Частые <span>Вопросы</span></h2>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="faq-item">
+                <button class="faq-question">Как проходят уроки?</button>
+                <div class="faq-answer"><p>Занятия проходят онлайн на нашей платформе. Мы используем интерактивные доски, видеосвязь и материалы собственной разработки.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Что если я пропущу занятие?</button>
+                <div class="faq-answer"><p>Все уроки записываются и доступны в вашем личном кабинете, так что вы ничего не пропустите. Вы также можете задать вопросы в чате поддержке.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Когда я получу сертификат?</button>
+                <div class="faq-answer"><p>Сертификат выдается после успешного завершения всех модулей курса и сдачи финального экзамена (Mock Test).</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 1rem;">The<span>Starth</span></div>
+                <p style="color: var(--ink-soft); font-size: 0.9rem;">Образование будущего. Математика и Английский язык.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Быстрые ссылки</h4>
+                <ul>
+                    <li><a href="#courses">Курсы</a></li>
+                    <li><a href="#pricing">Цены</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="careers.html">Вакансии</a></li>
+                    <li><a href="dashboard.html">Личный кабинет</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <ul>
+                    <li><a href="#">TheStarthInternational@gmail.com</a></li>
+                    <li><a href="https://wa.me/998918679777" target="_blank">WhatsApp: +998 91 867 97 77</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/starths.official/" target="_blank" aria-label="Instagram">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://t.me/TheStarthChannel" target="_blank" aria-label="Telegram">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    </a>
+                    <a href="#" target="_blank" aria-label="YouTube">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a href="#" target="_blank" aria-label="TikTok">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v8.12c0 1.05-.15 2.12-.52 3.12-.66 1.77-2.11 3.16-3.88 3.73-1.84.58-3.92.48-5.65-.45-1.55-.83-2.65-2.26-3.15-3.92-.51-1.69-.42-3.56.24-5.18.73-1.78 2.21-3.2 4-3.79 1.18-.39 2.45-.48 3.68-.27.1-.01.21-.02.32-.02v4.04c-1.2-.1-2.43-.03-3.53.51-1.07.52-1.85 1.51-2.1 2.68-.24 1.14-.02 2.37.58 3.37.58.98 1.54 1.59 2.69 1.77 1.05.16 2.16-.01 3.05-.55.88-.53 1.48-1.39 1.72-2.38.25-.99.27-2.03.26-3.05V.02z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TheStarth. Все права защищены. | <a href="privacy.html" style="color: var(--ink-soft); text-decoration: underline;">Политика конфиденциальности</a></p>
+        </div>
+    </footer>
+
+    <!-- Dynamic Multi-Agent Live Chat Widget (Point 14) -->
+    <div class="chat-widget" id="chatWidget">
+        <button class="chat-trigger" id="chatTrigger" aria-label="Открыть поддержку">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
+            </svg>
+        </button>
+        <div class="chat-popup" id="chatPopup">
+            <div class="chat-header">
+                <h4>Связаться с экспертом</h4>
+                <p>Выберите интересующее вас направление для быстрой связи в Telegram</p>
+            </div>
+            <div class="chat-body">
+                <a href="https://t.me/Firdavs_TheStarth" target="_blank" class="chat-agent">
+                    <div class="agent-avatar">У.Ф</div>
+                    <div class="agent-info">
+                        <h5>Убайдуллоев Фирдавс</h5>
+                        <p>IELTS Подготовка & Консультации</p>
+                    </div>
+                    <div class="status-badge">
+                        <span class="status-dot"></span> Online
+                    </div>
+                </a>
+                <a href="https://t.me/Behruz_TheStarth" target="_blank" class="chat-agent">
+                    <div class="agent-avatar">С.Б</div>
+                    <div class="agent-info">
+                        <h5>Соатбоев Бехруз</h5>
+                        <p>SAT Math & Математика</p>
+                    </div>
+                    <div class="status-badge">
+                        <span class="status-dot"></span> Online
+                    </div>
+                </a>
+                <a href="https://t.me/Sadoqat_TheStarth" target="_blank" class="chat-agent">
+                    <div class="agent-avatar">С</div>
+                    <div class="agent-info">
+                        <h5>Садокат</h5>
+                        <p>IELTS Speaking Specialist</p>
+                    </div>
+                    <div class="status-badge">
+                        <span class="status-dot"></span> Online
+                    </div>
+                </a>
+                <a href="https://t.me/Javohir_TheStarth" target="_blank" class="chat-agent">
+                    <div class="agent-avatar">Ж</div>
+                    <div class="agent-info">
+                        <h5>Жавохир</h5>
+                        <p>General English & IELTS</p>
+                    </div>
+                    <div class="status-badge">
+                        <span class="status-dot"></span> Online
+                    </div>
+                </a>
+                <a href="https://t.me/Azizbek_TheStarth" target="_blank" class="chat-agent">
+                    <div class="agent-avatar">А</div>
+                    <div class="agent-info">
+                        <h5>Азизбек</h5>
+                        <p>Олимпиадная математика</p>
+                    </div>
+                    <div class="status-badge">
+                        <span class="status-dot"></span> Online
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner (Point 12) -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p class="cookie-text">Мы используем файлы cookie для персонализации сервисов и улучшения работы сайта. Продолжая пользоваться сайтом, вы соглашаетесь с нашей <a href="privacy.html">Политикой конфиденциальности</a>.</p>
+        <button class="cookie-btn" id="acceptCookiesBtn">Согласиться</button>
+    </div>
+
+    <!-- Floating Contact Buttons -->
+    <div class="floating-contacts">
+        <a href="https://wa.me/998918679777" target="_blank" class="float-btn wa">WA</a>
+        <a href="https://t.me/+998918679777" target="_blank" class="float-btn tg">TG</a>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-auth-modal" style="float: right; cursor: pointer; font-size: 1.5rem; color: var(--ink-soft);">&times;</span>
+            <h2>Регистрация / <span>Вход</span></h2>
+            <p>Оставьте свои контакты, чтобы получить доступ к ценам и личному кабинету.</p>
+            <form id="authForm">
+                <input type="text" name="name" placeholder="Ваше имя" required>
+                <input type="tel" name="phone" placeholder="Номер телефона" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Войти в кабинет</button>
+                <p style="font-size: 0.75rem; color: var(--ink-soft); text-align: center; margin-top: 1rem;">
+                    Нажимая кнопку, вы соглашаетесь с <a href="#" style="color: var(--accent); text-decoration: underline;">Политикой конфиденциальности</a>.
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Modal -->
+    <div id="appModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Записаться на <span>курс</span></h2>
+            <p>Оставьте свои данные, и мы свяжемся с вами в ближайшее время!</p>
+            <form id="leadForm">
+                <input type="text" name="name" placeholder="Ваше имя" required>
+                <input type="tel" name="phone" placeholder="Номер телефона" required>
+                <select name="course" required>
+                    <option value="" disabled selected>Выберите курс</option>
+                    <option value="ielts">IELTS Preparation</option>
+                    <option value="sat">SAT Math</option>
+                    <option value="ege">ОГЭ / ЕГЭ</option>
+                </select>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Отправить заявку</button>
+                <p style="font-size: 0.75rem; color: var(--ink-soft); text-align: center; margin-top: 1rem;">
+                    Нажимая кнопку, вы соглашаетесь с <a href="#" style="color: var(--accent); text-decoration: underline;">Политикой конфиденциальности</a>.
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <style>
+    /* ═══════════════════════════════════════
+       HERO — editorial, grounded in an actual
+       score report instead of a stock stat card
+    ═══════════════════════════════════════ */
+    .hero {
+        position: relative;
+        width: 100%;
+        padding: 9rem 2rem 3rem;
+        background: var(--paper);
+    }
+
+    .hero-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 4rem;
+        align-items: center;
+    }
+
+    .hero-text {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: heroFadeUp 0.7s ease 0.1s forwards;
+    }
+
+    .hero-text h1 {
+        font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+        line-height: 1.15;
+        margin-bottom: 1.25rem;
+        color: var(--ink);
+        max-width: 14ch;
+    }
+
+    .hero-lede {
+        font-size: 1.1rem;
+        color: var(--ink-soft);
+        max-width: 46ch;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.75rem;
+        flex-wrap: wrap;
+        margin-bottom: 2.5rem;
+    }
+
+    .hero-actions .btn-primary {
+        padding: 0.9rem 1.9rem;
+        font-size: 1rem;
+    }
+
+    .hero-link {
+        font-weight: 600;
+        color: var(--ink);
+        border-bottom: 1px solid var(--ink);
+        padding-bottom: 2px;
+    }
+    .hero-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    .hero-trust {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+    }
+    .hero-trust span:not(:last-child) {
+        padding-right: 1.5rem;
+        border-right: 1px solid var(--rule);
+    }
+    .hero-trust strong {
+        color: var(--ink);
+        font-family: var(--font-heading);
+        font-weight: 700;
+    }
+
+    /* Score report card — the one deliberate visual in the hero */
+    .hero-visual {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: heroFadeUp 0.7s ease 0.25s forwards;
+    }
+    .score-card {
+        background: #fff;
+        border: 1px solid var(--rule);
+        border-radius: 4px;
+        padding: 2rem;
+        max-width: 340px;
+        margin-left: auto;
+        box-shadow: 0 20px 50px rgba(24, 27, 32, 0.08);
+    }
+    .score-card-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding-bottom: 1.25rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px dashed var(--rule);
+        font-size: 0.78rem;
+        letter-spacing: 0.3px;
+        color: var(--ink-soft);
+    }
+    .score-card-overall {
+        display: flex;
+        align-items: baseline;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+    .score-card-band {
+        font-family: var(--font-heading);
+        font-size: 3.4rem;
+        font-weight: 700;
+        color: var(--accent);
+        line-height: 1;
+    }
+    .score-card-band-label {
+        color: var(--ink-soft);
+        font-size: 0.85rem;
+    }
+    .score-card-rows {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+    .score-card-rows li {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.92rem;
+        color: var(--ink);
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--paper-alt);
+    }
+    .score-card-rows li:last-child { border-bottom: none; padding-bottom: 0; }
+    .score-card-rows span:last-child { font-weight: 700; font-family: var(--font-heading); }
+
+    @keyframes heroFadeUp {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+        .hero-inner { grid-template-columns: 1fr; }
+        .score-card { margin: 0 auto; }
+    }
+
+    /* FAQ accordion */
+    .faq-item { border-bottom: 1px solid var(--rule); }
+    .faq-question {
+        width: 100%;
+        background: none;
+        border: none;
+        color: var(--ink);
+        font-size: 1.05rem;
+        font-weight: 600;
+        text-align: left;
+        padding: 1.5rem 0;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: color 0.2s;
+    }
+    .faq-question::after { content: '+'; font-size: 1.5rem; color: var(--accent); transition: transform 0.3s; }
+    .faq-question.open { color: var(--accent); }
+    .faq-question.open::after { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-answer p { padding: 0 0 1.5rem; color: var(--ink-soft); line-height: 1.7; }
+
+    /* Pricing and Loyalty Center Styles */
+    .pricing-toggle-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: -1.5rem auto 3rem auto;
+        gap: 1rem;
+    }
+    .pricing-toggle-container {
+        display: inline-flex;
+        background: var(--paper);
+        padding: 4px;
+        border-radius: 50px;
+        border: 1px solid var(--rule);
+        position: relative;
+    }
+    .pricing-toggle-btn {
+        padding: 0.75rem 2rem;
+        background: transparent;
+        border: none;
+        color: var(--ink-soft);
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        z-index: 2;
+    }
+    .pricing-toggle-btn.active {
+        color: #fff;
+        background: var(--accent);
+        box-shadow: 0 4px 15px rgba(27, 110, 78, 0.3);
+    }
+    .pricing-toggle-desc {
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+        max-width: 600px;
+        text-align: center;
+        min-height: 3em;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Loyalty Section styling */
+    .loyalty-section {
+        background: var(--paper);
+        border-top: 1px solid var(--rule);
+        padding: 5rem 2rem;
+    }
+    .loyalty-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .loyalty-card {
+        background: var(--paper-alt);
+        border: 1px solid var(--rule);
+        border-radius: 16px;
+        padding: 2.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .loyalty-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent);
+        box-shadow: 0 10px 30px rgba(24, 27, 32, 0.06);
+    }
+    .loyalty-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 4px;
+        background: var(--accent);
+        opacity: 0.5;
+    }
+    .loyalty-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--accent);
+    }
+    .loyalty-card h3 {
+        font-size: 1.4rem;
+        color: var(--ink);
+        margin-bottom: 1rem;
+    }
+    .loyalty-card p {
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+    .loyalty-badge {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: var(--accent-tint);
+        color: var(--accent);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        border: 1px solid var(--accent);
+    }
+    .loyalty-quests {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+    .quest-item {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+    }
+    .quest-item:hover {
+        background: var(--accent-tint);
+        border-color: var(--accent);
+    }
+    .quest-item.completed {
+        border-color: #25D366;
+        background: rgba(37, 211, 102, 0.05);
+    }
+    .quest-checkbox {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--ink-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: transparent;
+        font-weight: bold;
+        font-size: 0.7rem;
+    }
+    .quest-item.completed .quest-checkbox {
+        border-color: #25D366;
+        background: #25D366;
+        color: white;
+    }
+    .promo-input-group {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 1rem;
+    }
+    .promo-input {
+        flex: 1;
+        padding: 0.8rem;
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        color: var(--ink);
+        font-family: var(--font-main);
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        transition: border-color 0.2s;
+    }
+    .promo-input:focus {
+        border-color: var(--accent);
+        outline: none;
+    }
+    .promo-btn {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .promo-btn:hover {
+        transform: translateY(-2px);
+    }
+    .promo-feedback {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        display: none;
+        padding: 0.5rem;
+        border-radius: 6px;
+        line-height: 1.4;
+    }
+    .promo-feedback.success {
+        display: block;
+        background: rgba(37, 211, 102, 0.1);
+        border: 1px solid rgba(37, 211, 102, 0.3);
+        color: #25D366;
+    }
+    .promo-feedback.error {
+        display: block;
+        background: rgba(231, 76, 60, 0.1);
+        border: 1px solid rgba(231, 76, 60, 0.3);
+        color: #e74c3c;
+    }
+
+    /* Dynamic price animation */
+    .price-amount {
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+    .price-discount-tag {
+        font-size: 0.85rem;
+        color: #25D366;
+        background: rgba(37, 211, 102, 0.15);
+        padding: 2px 8px;
+        border-radius: 12px;
+        vertical-align: middle;
+        margin-left: 8px;
+        display: inline-block;
+        font-weight: bold;
+    }
+
+    /* Toast Notification */
+    .starth-toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--paper);
+        border: 1px solid var(--accent);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 8px 30px rgba(24, 27, 32, 0.15), 0 0 20px rgba(27, 110, 78, 0.1);
+        color: var(--ink);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transform: translateY(150px);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+    }
+    .starth-toast.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    .starth-toast-icon {
+        color: var(--accent);
+        font-size: 1.3rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero-content { padding: 7rem 1.5rem 2rem; }
+        .trust-metrics { gap: 2rem; flex-wrap: wrap; }
+        .hero-cta-row { flex-direction: column; align-items: stretch; }
+        .btn-hero-primary, .btn-hero-outline { text-align: center; }
+        .countdown-box { padding: 0.75rem 1rem; }
+        .countdown-num { font-size: 1.5rem; }
+        .countdown-item { min-width: 40px; }
+        .loyalty-grid { grid-template-columns: 1fr; }
+    }
+    </style>
+
+    <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const answer = btn.nextElementSibling;
+            const isOpen = btn.classList.contains('open');
+            document.querySelectorAll('.faq-question.open').forEach(b => {
+                b.classList.remove('open');
+                b.nextElementSibling.style.maxHeight = null;
+            });
+            if (!isOpen) {
+                btn.classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Certificate verifier
+    const verifyBtn = document.getElementById('verify-cert-btn');
+    if (verifyBtn) {
+        verifyBtn.addEventListener('click', () => {
+            const val = document.getElementById('cert-input').value.trim().toUpperCase();
+            const result = document.getElementById('cert-result');
+            result.style.display = 'block';
+            if (val.startsWith('TST') && val.length >= 8) {
+                result.style.color = '#1B6E4E';
+                result.textContent = '✅ Сертификат действителен! Выдан платформой TheStarth.';
+            } else {
+                result.style.color = '#A32638';
+                result.textContent = '❌ Сертификат не найден. Проверьте номер и попробуйте снова.';
+            }
+        });
+    }
+    </script>
+
+    <script src="app.js"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                includedLanguages: 'ru,en,uz',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+        function changeLanguage(langCode) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll(`.lang-btn[onclick*="${langCode}"]`).forEach(btn => btn.classList.add('active'));
+
+            let attempts = 0;
+            (function trySwitch() {
+                const select = document.querySelector('.goog-te-combo');
+                if (select) {
+                    select.value = langCode;
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                } else if (attempts < 20) {
+                    attempts++;
+                    setTimeout(trySwitch, 250);
+                }
+            })();
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

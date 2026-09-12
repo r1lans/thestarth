@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест Уровня Математики (SAT Math) — TheStarth</title>
+    <meta name="description" content="Бесплатный интерактивный диагностический тест по математике и SAT Math с мгновенным результатом.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600&family=Fraunces:opsz,wght@9..144,600..900&display=swap" rel="stylesheet">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2.5rem;
+            background: var(--paper-alt);
+            border: 1px solid var(--rule);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
+        .math-expr {
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: var(--accent);
+            background: rgba(255,255,255,0.03);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .question-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--paper-alt);
+            border: 1px solid var(--rule);
+            border-radius: 12px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.8rem;
+            background: var(--paper);
+            border: 1px solid var(--rule);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            border-color: var(--accent);
+            background: var(--accent-tint);
+        }
+
+        .option-label input {
+            accent-color: var(--accent);
+        }
+
+        .grid-in-input {
+            width: 100%;
+            max-width: 250px;
+            padding: 0.8rem;
+            background: var(--paper);
+            border: 1px solid var(--rule);
+            color: var(--ink);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: border-color 0.2s;
+        }
+
+        .grid-in-input:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+
+        /* Modal styling */
+        .modal-lead {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-lead-content {
+            background: var(--paper-alt);
+            border: 1px solid var(--accent);
+            padding: 2.5rem;
+            border-radius: 16px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(24, 27, 32, 0.2);
+        }
+
+        .modal-lead-content h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .modal-lead-content input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            background: var(--paper);
+            border: 1px solid var(--rule);
+            color: var(--ink);
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .modal-lead-content input:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" style="text-decoration: none;">
+                <div class="logo" style="display: flex; align-items: center; gap: 12px; letter-spacing: normal;">
+                    <span class="site-logo-icon"><svg width="45" height="45" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(50, 50) rotate(45) translate(-50, -50)">
+                            <rect x="25" y="25" width="50" height="50" fill="none" stroke="#D4AF37" stroke-width="4"/>
+                            <rect x="20" y="20" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                            <rect x="70" y="20" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                            <rect x="20" y="70" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                            <rect x="70" y="70" width="10" height="10" fill="#1A1A1A" stroke="#D4AF37" stroke-width="3"/>
+                        </g>
+                    </svg></span>
+                    <div style="display: flex; flex-direction: column; justify-content: center; transform: translateY(2px);">
+                        <span style="font-family: 'Dancing Script', cursive; font-size: 2.2rem; line-height: 0.85; color: var(--ink); font-weight: 700; letter-spacing: 0;">TheStarth</span>
+                        <span style="font-family: 'Inter', sans-serif; font-size: 0.55rem; letter-spacing: 2px; color: var(--ink-soft); text-transform: uppercase; margin-top: 4px;">Start with the best.</span>
+                    </div>
+                </div>
+            </a>
+            <button class="mobile-toggle" aria-label="Toggle menu">☰</button>
+            <div class="nav-links">
+                <a href="index.html#courses">Курсы</a>
+                <a href="about.html">О нас</a>
+                <a href="mock-exam.html" style="color: var(--accent); font-weight: bold; position: relative;">Mock Exam <span style="position: absolute; top: -12px; right: -15px; background: red; color: white; font-size: 0.55rem; padding: 2px 4px; border-radius: 4px; text-transform: uppercase;">New</span></a>
+                <a href="payment.html" class="btn-outline" style="border-color: var(--accent); color: var(--accent);">Оплата</a>
+                <a href="dashboard.html" class="btn-outline">Личный кабинет</a>
+                <div class="lang-switch">
+                    <a href="#" onclick="changeLanguage('ru'); return false;" class="lang-btn active">RU</a>
+                    <a href="#" onclick="changeLanguage('uz'); return false;" class="lang-btn">UZ</a>
+                    <a href="#" onclick="changeLanguage('en'); return false;" class="lang-btn">EN</a>
+                </div>
+                <div id="google_translate_element"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main style="padding: 0 1.5rem;">
+        <div class="test-container">
+            <h1 style="text-align: center; margin-bottom: 0.5rem; font-family: var(--font-heading); font-size: 2.2rem;">SAT Math <span class="text-premium">Diagnostic Test</span></h1>
+            <p style="text-align: center; color: var(--ink-soft); margin-bottom: 2.5rem;">Проверьте свою математическую логику и уровень готовности к SAT Math всего за 5 экспресс-вопросов.</p>
+
+            <form id="math-test-form" onsubmit="submitMathTest(event)">
+                
+                <!-- Q1 -->
+                <div class="question-item">
+                    <p class="question-text">1. If <span class="math-expr">3x + 9 = 27</span>, what is the value of <span class="math-expr">2x - 3</span>?</p>
+                    <div class="options-grid">
+                        <label class="option-label">
+                            <input type="radio" name="mq1" value="A" required>
+                            <span>A) 6</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq1" value="B">
+                            <span>B) 9</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq1" value="C">
+                            <span>C) 12</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq1" value="D">
+                            <span>D) 15</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="question-item">
+                    <p class="question-text">2. A line in the xy-plane passes through the origin <span class="math-expr">(0,0)</span> and has a slope of <span class="math-expr">5/2</span>. Which of the following points lies on this line?</p>
+                    <div class="options-grid">
+                        <label class="option-label">
+                            <input type="radio" name="mq2" value="A" required>
+                            <span>A) (2, 5)</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq2" value="B">
+                            <span>B) (5, 2)</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq2" value="C">
+                            <span>C) (4, 8)</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq2" value="D">
+                            <span>D) (2, 2)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="question-item">
+                    <p class="question-text">3. If <span class="math-expr">f(x) = x² - 4x + 7</span>, what is the minimum value of the function <span class="math-expr">f(x)</span>?</p>
+                    <div class="options-grid">
+                        <label class="option-label">
+                            <input type="radio" name="mq3" value="A" required>
+                            <span>A) 2</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq3" value="B">
+                            <span>B) 3</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq3" value="C">
+                            <span>C) 7</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq3" value="D">
+                            <span>D) 11</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="question-item">
+                    <p class="question-text">4. In a right triangle, one angle measures <span class="math-expr">x°</span> where <span class="math-expr">sin(x°) = 4/5</span>. What is the value of <span class="math-expr">cos(90° - x°)</span>?</p>
+                    <div class="options-grid">
+                        <label class="option-label">
+                            <input type="radio" name="mq4" value="A" required>
+                            <span>A) 3/5</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq4" value="B">
+                            <span>B) 4/5</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq4" value="C">
+                            <span>C) 1</span>
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="mq4" value="D">
+                            <span>D) 5/4</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q5 (Grid-in) -->
+                <div class="question-item">
+                    <p class="question-text">5. Grid-in Question: If <span class="math-expr">2(x - 5) + 3(x + 2) = 26</span>, what is the value of <span class="math-expr">x</span>?</p>
+                    <input type="number" name="mq5" step="any" placeholder="Введите полученное число" class="grid-in-input" required>
+                </div>
+
+                <button type="submit" class="btn-primary" style="display: block; width: 100%; font-size: 1.2rem; padding: 1rem; margin-top: 2rem;">Отправить ответы</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Lead Capturing Modal -->
+    <div id="leadModal" class="modal-lead">
+        <div class="modal-lead-content">
+            <h2>📊 Расчет Багов...</h2>
+            <p style="color: var(--ink-soft); margin-bottom: 1.5rem;">Мы готовы рассчитать ваш приблизительный SAT Score. Введите ваши контакты, чтобы сохранить результат и моментально его увидеть.</p>
+            <form id="math-lead-form" onsubmit="submitLeadForm(event)">
+                <input type="text" id="leadName" placeholder="Ваше Имя" required>
+                <input type="tel" id="leadPhone" placeholder="+998 (__) ___-__-__" required>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 0.8rem;">Получить SAT Score</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal-lead">
+        <div class="modal-lead-content">
+            <h2>🏆 Ваш SAT Math Результат</h2>
+            <div style="font-size: 4rem; color: var(--accent); font-weight: 800; margin: 1.5rem 0;" id="scoreDisplay">720 / 800</div>
+            <p style="color: var(--ink); margin-bottom: 1rem;" id="scoreSummary">Прекрасно! Вы верно ответили на 4 из 5 вопросов.</p>
+            <p style="color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 2rem;">Ваш балл показывает отличный математический потенциал. Наш преподаватель SAT Math свяжется с вами, чтобы обсудить детальные стратегии подготовки до заветных 780+!</p>
+            <a href="index.html" class="btn-primary" style="display: block; text-decoration: none; padding: 0.8rem;">На главную</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem;">
+        <div class="footer-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 1200px; margin: 0 auto 2rem auto;">
+            <div class="footer-col" style="text-align: center;">
+                <h4>Контакты</h4>
+                <div class="social-icons" style="justify-content: center; margin-top: 1rem;">
+                    <a href="https://www.instagram.com/starths.official/" target="_blank" aria-label="Instagram">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://t.me/TheStarthChannel" target="_blank" aria-label="Telegram">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23.91 3.79c-.16-.83-.72-1.39-1.55-1.55C20.65 1.9 2.52 1.9.81 2.24c-.83.16-1.39.72-1.55 1.55C-.92 5.5-.92 18.5-.58 20.21c.16.83.72 1.39 1.55 1.55C2.75 22.1 20.88 22.1 22.59 21.76c.83-.16 1.39-.72 1.55-1.55.34-1.71.34-14.71 0-16.42zM9.54 15.56V8.44l6.85 3.56-6.85 3.56z"/></svg>
+                    </a>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--ink-soft);">© 2026 TheStarth. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Translation support -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                includedLanguages: 'ru,en,uz',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+        
+        function changeLanguage(langCode) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll(`.lang-btn[onclick*="${langCode}"]`).forEach(btn => btn.classList.add('active'));
+
+            let attempts = 0;
+            (function trySwitch() {
+                const select = document.querySelector('.goog-te-combo');
+                if (select) {
+                    select.value = langCode;
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                } else if (attempts < 20) {
+                    attempts++;
+                    setTimeout(trySwitch, 250);
+                }
+            })();
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Math test quiz script -->
+    <script>
+        let mathAnswers = {};
+
+        function submitMathTest(event) {
+            event.preventDefault();
+            const form = document.getElementById('math-test-form');
+            const formData = new FormData(form);
+
+            mathAnswers.mq1 = formData.get('mq1');
+            mathAnswers.mq2 = formData.get('mq2');
+            mathAnswers.mq3 = formData.get('mq3');
+            mathAnswers.mq4 = formData.get('mq4');
+            mathAnswers.mq5 = formData.get('mq5').trim();
+
+            document.getElementById('leadModal').style.display = 'flex';
+        }
+
+        function submitLeadForm(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('leadName').value;
+            const phone = document.getElementById('leadPhone').value;
+
+            // Calculate correct score
+            let correctCount = 0;
+            if (mathAnswers.mq1 === 'B') correctCount++; // 2x - 3 = 2(6) - 3 = 9
+            if (mathAnswers.mq2 === 'A') correctCount++; // (2, 5) slope is 5/2
+            if (mathAnswers.mq3 === 'B') correctCount++; // minimum value of x^2 - 4x + 7 is 3 (at x=2)
+            if (mathAnswers.mq4 === 'B') correctCount++; // cos(90 - x) = sin(x) = 4/5
+            if (mathAnswers.mq5 === '6') correctCount++; // 2x-10 + 3x+6 = 26 -> 5x - 4 = 26 -> 5x = 30 -> x = 6
+
+            let satScore = 400;
+            if (correctCount === 1) satScore = 480;
+            if (correctCount === 2) satScore = 550;
+            if (correctCount === 3) satScore = 620;
+            if (correctCount === 4) satScore = 700;
+            if (correctCount === 5) satScore = 800;
+
+            // Submit to Formspree
+            fetch('https://formspree.io/f/mqennban', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    lead_type: 'SAT_MATH_TEST_LEAD',
+                    name: name,
+                    phone: phone,
+                    score: satScore,
+                    answers: mathAnswers
+                })
+            }).then(() => {
+                console.log("Math lead successfully captured!");
+            }).catch(err => {
+                console.error("Ad-blocker or network error: ", err);
+            });
+
+            // Display result
+            document.getElementById('leadModal').style.display = 'none';
+            document.getElementById('scoreDisplay').textContent = `${satScore} / 800`;
+            document.getElementById('scoreSummary').textContent = `Прекрасно! Вы верно ответили на ${correctCount} из 5 вопросов.`;
+            document.getElementById('resultModal').style.display = 'flex';
+
+            // Save result for the personal dashboard
+            localStorage.setItem('satTestCompleted', 'true');
+            localStorage.setItem('satScore', String(satScore));
+            localStorage.setItem('satCorrectCount', String(correctCount));
+            localStorage.setItem('satTestDate', new Date().toISOString());
+        }
+    </script>
+</body>
+</html>
