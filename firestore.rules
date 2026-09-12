@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Each student can read/write only their own profile document.
+    // Admins can read every profile (needed for the admin panel's
+    // student lookup, e.g. by nickname).
+    match /users/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow write: if isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Nickname uniqueness "reservation" documents: doc id == the nickname.
+    // Anyone signed in can check availability (read) or claim a free one
+    // (create only, never overwrite someone else's).
+    match /nicknames/{nickname} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // News & reviews: public read of published items. Admins can write
+    // anything; signed-in students can submit a review, but only ever
+    // as unpublished (pending admin approval) — never publish themselves.
+    match /news/{id} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /reviews/{id} {
+      allow read: if resource.data.published == true || isAdmin();
+      allow create: if isAdmin() || (isSignedIn() && request.resource.data.published == false);
+      allow update, delete: if isAdmin();
+    }
+
+    // Site-wide settings (accent color, logo, announcement banner):
+    // public read, admin-only write.
+    match /settings/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Admin allowlist: nobody can write this from the client — you add
+    // admins by hand in the Firebase console (see FIREBASE_SETUP.md).
+    match /admins/{uid} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+  }
+}
