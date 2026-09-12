@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /dashboard.html
-Disallow: /dashboard.js
-
-Sitemap: https://thestarth.com/sitemap.xml
