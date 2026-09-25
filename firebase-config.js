@@ -2,12 +2,12 @@
 // These values are NOT secret; Firebase is designed to have them visible
 // in client code. Real protection comes from firestore.rules.
 const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyAZPvzDQEo8_n-PKRelULaOFflqydjv2BI",
+    authDomain: "the-starth-77298.firebaseapp.com",
+    projectId: "the-starth-77298",
+    storageBucket: "the-starth-77298.firebasestorage.app",
+    messagingSenderId: "419721327750",
+    appId: "1:419721327750:web:10eecbad816b18d9414d07"
 };
 
 let auth = null;
